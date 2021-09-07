@@ -1,0 +1,105 @@
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class=" card">
+        <div class=" card-header">
+          <h4 class=" card-title"></h4>
+        </div>
+        <div class=" card-body">
+          <div class=" table-responsive">
+            <table class=" table tablesorter" id="tableProductos">
+              <thead class=" text-primary">
+                <tr>
+                  <th class=" text-center">Eliminar</th>
+                  <th class=" text-center">Modificar cantidad solicitada</th>
+                  <th class=" text-center">Libros</th>
+                  <th class=" text-center">Cantidad a solicitar</th>
+                  <th class=" text-center">Valor unitario</th>
+                  <th class=" text-center">Valor total</th>      
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of responseItems">
+                  <td class=" text-center">
+                    <button title="Eliminar item" type="button" class="btn btn-primary" (click)="eliminarProducto(item.idProducto)">
+                    <i class="tim-icons icon-trash-simple"></i></button>
+                  </td>
+                  <td class=" text-center">
+                    <button title="Modificar item" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modificarModal" (click)="cargarDatosFila(item)">
+                      <i class="tim-icons icon-pencil"></i>
+                    </button>
+                  </td>
+                  <td class=" text-center">{{item.nombreProducto}}</td>
+                  <td class=" text-center">{{item.tipoProducto}}</td>
+                  <td class=" text-center">${{item.valorProducto}} COP</td>
+                  <td class=" text-center">${{item.valorProducto*item.tipoProducto}} COP</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class=" text-right" value="hallarTotal(responseItems)">Valor total de la compra: {{total}}</p> 
+          </div>
+          <div>
+            <button title="Agregar producto" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearModal" aria-expanded="false">
+              Cancelar compra
+            </button>
+            <button title="Agregar producto" type="button" class="btn btn-primary" (click)="descontarCompras()" (click)="cargarItems()">
+              Confirmar compra
+            </button>
+          </div>>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modificarModal" tabindex="-1" aria-labelledby="modificarModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modificar cantidad a solicitar</h5>
+      </div>
+      <div class="modal-body">
+        <div class=" row">
+          <div class=" col-md-6">
+            <label for="nombre-producto">Nombre del libro</label>
+          </div>
+          <div class=" col-md-6" class="form-group">
+            <input type="text" class="form-control" id="nombreProducto" name="nombreProducto"
+              [(ngModel)]="nombreProducto" readonly>
+          </div>
+        </div>
+        <div class=" row">
+          <div class=" col-md-6">
+            <label for="descripcion-producto">Cantidad disponible</label>
+          </div>
+          <div class=" col-md-6" class="form-group">
+            <input type="text" class="form-control" id="descripcionProducto" name="descripcionProducto"
+              [(ngModel)]="descripcionProducto" readonly>
+          </div>
+        </div>
+        <div class=" row">
+          <div class=" col-md-6">
+            <label for="valor-producto">Valor producto</label>
+          </div>
+          <div class=" col-md-6" class="form-group">
+            <input type="number" class="form-control" id="valorProducto" name="valorProducto"
+              [(ngModel)]="valorProducto" readonly>
+          </div>
+        </div>
+        <div class=" row">
+          <div class=" col-md-6">
+            <label for="tipoProducto">Cantidad solicitada</label>
+          </div>
+          <div class=" col-md-6" class="form-group">
+            <input type="number" [min]="1" [max]=100 step="1" class="form-control" id="tipoProducto" name="tipoProducto" [(ngModel)]="tipoProducto">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiarModal()">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="modificarProducto()">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>

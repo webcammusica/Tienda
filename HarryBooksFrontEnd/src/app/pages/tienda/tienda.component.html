@@ -1,0 +1,80 @@
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class=" card">
+        <div class=" card-header">
+          <h5 class=" title">Libros disponibles</h5>
+        </div>
+        <div class=" card-body all-icons">
+          <div class=" row">
+            <div *ngFor="let producto of responseProductos" class=" font-icon-list col-lg-3 col-md-4 col-sm-4 col-xs-6 col-xs-6">
+              <div class=" font-icon-detail">
+                <h6>{{producto.nombreProducto}}</h6>
+                <img src="../../../assets/img/pexels-maël-balland-3457273.jpg" alt="foto1-maël-balland">
+                <p>Cantidad disponible: {{producto.descripcionProducto}}</p>
+                <p>Precio: ${{producto.valorProducto}} COP</p> 
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#solicitarEjemplares" (click)="cargarDatosFila(producto)" title="Agregar al carrito">Agregar</button>
+              </div>           
+            </div>          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="solicitarEjemplares" tabindex="-1" aria-labelledby="solicitarEjemplaresLabel" >
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <style> 
+        input[type=text] {
+          color: black;
+        }
+        input[type=number] {
+          color: black;
+        }
+        </style>
+      <h5 class="modal-title">Cantidad a solicitar</h5>
+    </div>
+    <div class="modal-body">
+      <div class=" row">
+        <div class=" col-md-6">
+          <label for="nombre-producto">Nombre del libro</label>
+        </div>
+        <div class=" col-md-6" class="form-group">
+          <input type="text" class="form-control" id="nombreProducto" name="nombreProducto"  [(ngModel)]="nombreProducto" readonly>
+        </div>
+      </div>
+      <div class=" row">
+        <div class=" col-md-6">
+          <label for="descripcion-producto">Cantidad disponible</label>
+        </div>
+        <div class=" col-md-6" class="form-group">
+          <input type="text" class="form-control" id="descripcionProducto" name="descripcionProducto" [(ngModel)]="descripcionProducto" readonly>
+        </div>
+      </div>
+      <div class=" row">
+        <div class=" col-md-6">
+          <label for="valor-producto">Valor producto</label>
+        </div>
+        <div class=" col-md-6" class="form-group">
+          <input type="number" class="form-control" id="valorProducto" name="valorProducto" [(ngModel)]="valorProducto" readonly>
+        </div>
+      </div>
+      <div class=" row">
+        <div class=" col-md-6">
+          <label for="tipoProducto">Cantidad solicitada</label>
+        </div>
+        <div class=" col-md-6" class="form-group">
+          <input type="number" min="1" max="100" step="1" class="form-control" id="tipoProducto" name="tipoProducto" [(ngModel)]="tipoProducto" value = "1">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" >
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiarModal()">Cancelar</button>
+      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="crearProducto()">Añadir al carrito <i class="tim-icons icon-cart"></i></button>
+    </div>
+  </div>
+  </div>
+</div>
